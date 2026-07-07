@@ -22,11 +22,25 @@ const {
   class: className = '',
   ...rest
 } = Astro.props;
+
+// Map ratios to static Tailwind classes so no inline style attribute is needed
+// (keeps the strict CSP working — inline styles can't be CSP-hashed).
+// These literal strings must stay here for Tailwind's scanner to emit them.
+const ratioClasses: Record<string, string> = {
+  '4/5': 'aspect-[4/5]',
+  '5/4': 'aspect-[5/4]',
+  '4/3': 'aspect-[4/3]',
+  '3/4': 'aspect-[3/4]',
+  '16/9': 'aspect-[16/9]',
+  '9/16': 'aspect-[9/16]',
+  '1/1': 'aspect-square',
+  auto: 'aspect-auto',
+};
+const ratioClass = ratioClasses[ratio] ?? 'aspect-[4/5]';
 ---
 
 <figure
-  class:list={['relative overflow-hidden grain-overlay', className]}
-  style={`aspect-ratio:${ratio}`}
+  class:list={['relative overflow-hidden grain-overlay', ratioClass, className]}
   {...rest}
 >
   <div class="frame-grain absolute inset-0"></div>

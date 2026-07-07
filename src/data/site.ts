@@ -21,6 +21,10 @@ export const site = {
     brandEmail: 'brands@jelaniwoods.com',
     // Replace with the real Calendly / application scheduling link.
     applyUrl: 'https://calendly.com/jelaniwoods/coaching-application',
+    // Free, no-backend form endpoint. Paste an access key from
+    // https://web3forms.com to make the brand inquiry form submit inline.
+    // Left blank → the form gracefully falls back to a prefilled email.
+    web3formsKey: '',
   },
   social: {
     instagram: 'https://instagram.com/jelaniwoodstv',

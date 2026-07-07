@@ -86,10 +86,28 @@ Everything below is wired up with placeholders; swap in the real thing.
    avg views/reel, audience geo + age, engagement rate.
 7. **Testimonials** (`src/data/site.ts` → `testimonials`): replace placeholders
    with real, attributed quotes (with permission).
-8. **OG image**: add `public/og-default.png` (1200×630) for social sharing.
-9. **SEO**: update the production domain in `astro.config.mjs` and
-   `public/robots.txt`; submit the sitemap in Google Search Console; set up the
-   Google Business Profile with consistent NAP.
+8. **Brand inquiry form** (`src/data/site.ts` → `contact.web3formsKey`): paste a
+   free access key from [web3forms.com](https://web3forms.com) to make the UGC
+   form submit inline. Left blank, it falls back to a prefilled email — so it
+   works day one either way.
+9. **OG image**: `public/og-default.png` (1200×630) ships as a generated
+   type-only card — swap for one with a real photo when available.
+10. **SEO**: update the production domain in `astro.config.mjs` and
+    `public/robots.txt`; submit the sitemap in Google Search Console; set up the
+    Google Business Profile with consistent NAP.
+
+## Security & performance headers
+
+- **Content-Security-Policy**: a strict, hash-based CSP is emitted as a `<meta>`
+  tag by Astro (`astro.config.mjs → experimental.csp`). No `'unsafe-inline'` for
+  scripts *or* styles — the codebase avoids inline `style=""` attributes so the
+  policy stays tight. Extra sources are allow-listed for the Behold Instagram
+  feed and the Web3Forms endpoint.
+- **`public/_headers`** (Cloudflare Pages): `X-Frame-Options`, `X-Content-Type-
+  Options`, `Referrer-Policy`, `Permissions-Policy`, HSTS, and 1-year immutable
+  caching for fingerprinted `/_astro/*` assets and fonts.
+- **PWA basics**: `site.webmanifest` + `apple-touch-icon.png` + maskable icons,
+  so the site installs cleanly to a phone home screen.
 
 ## Instagram feed — two modes
 

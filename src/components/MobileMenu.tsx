@@ -35,34 +35,22 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
     <div className="md:hidden">
       <button
         type="button"
-        aria-label={open ? 'Close menu' : 'Open menu'}
+        aria-label="Open menu"
         aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => setOpen(true)}
         className="relative z-[60] flex h-11 w-11 flex-col items-center justify-center gap-[6px]"
       >
-        <span
-          className="block h-[2px] w-7 bg-bone transition-transform duration-300"
-          style={open ? { transform: 'translateY(8px) rotate(45deg)' } : undefined}
-        />
-        <span
-          className="block h-[2px] w-7 bg-bone transition-opacity duration-200"
-          style={open ? { opacity: 0 } : undefined}
-        />
-        <span
-          className="block h-[2px] w-7 bg-bone transition-transform duration-300"
-          style={open ? { transform: 'translateY(-8px) rotate(-45deg)' } : undefined}
-        />
+        <span className="block h-[2px] w-7 bg-bone" />
+        <span className="block h-[2px] w-7 bg-bone" />
+        <span className="block h-[2px] w-7 bg-bone" />
       </button>
 
       {mounted &&
         createPortal(
           <div
-            className="fixed inset-0 z-[55] flex flex-col px-6 pt-28 pb-10 transition-opacity duration-300 md:hidden"
-            style={{
-              backgroundColor: 'var(--color-ink)',
-              opacity: open ? 1 : 0,
-              pointerEvents: open ? 'auto' : 'none',
-            }}
+            className={`fixed inset-0 z-[55] flex flex-col bg-ink px-6 pt-28 pb-10 transition-opacity duration-300 md:hidden ${
+              open ? 'opacity-100' : 'pointer-events-none opacity-0'
+            }`}
             aria-hidden={!open}
             inert={!open}
           >
@@ -85,12 +73,10 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
                     key={item.href}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="border-b border-ink-line py-5 font-display text-4xl uppercase leading-none"
-                    style={{
-                      color: active
-                        ? 'var(--color-rust-bright)'
-                        : 'var(--color-bone)',
-                    }}
+                    aria-current={active ? 'page' : undefined}
+                    className={`border-b border-ink-line py-5 font-display text-4xl uppercase leading-none ${
+                      active ? 'text-rust-bright' : 'text-bone'
+                    }`}
                   >
                     <span className="mr-4 font-sans text-xs align-top text-bone-mute">
                       0{i + 1}

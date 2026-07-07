@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import VideoFrame from '../components/VideoFrame.astro';
 import SectionHead from '../components/SectionHead.astro';
+import InquiryForm from '../components/InquiryForm.tsx';
 import { site, brands, ugcPackages, ugcAddOns } from '../data/site';
 import { breadcrumbSchema } from '../data/schema';
 
@@ -57,7 +58,7 @@ const crumbs = breadcrumbSchema([
       </p>
       <div class="mt-10 flex flex-wrap gap-4" data-reveal="up">
         <a
-          href={`mailto:${site.contact.brandEmail}`}
+          href="#inquiry"
           class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
         >
           Start a brand inquiry
@@ -206,20 +207,32 @@ const crumbs = breadcrumbSchema([
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="shell pb-24 md:pb-36">
-    <div class="rounded-2xl border border-ink-line bg-ink-soft p-6 sm:p-10 md:p-16" data-reveal="up">
-      <h2 class="display-xl max-w-[16ch]">Let's make something worth running.</h2>
-      <p class="mt-6 max-w-md font-sans text-bone-dim">
-        Send the brief, the product, and the goal. I'll come back with concepts
-        and a quote — usually within a day.
-      </p>
-      <a
-        href={`mailto:${site.contact.brandEmail}`}
-        class="mt-8 inline-flex max-w-full items-center justify-center break-all bg-rust px-5 py-4 text-center font-sans text-xs font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright sm:px-7 sm:text-sm"
-      >
-        {site.contact.brandEmail}
-      </a>
+  <!-- CTA / INQUIRY FORM -->
+  <section id="inquiry" class="shell scroll-mt-24 pb-24 md:pb-36">
+    <div
+      class="rounded-2xl border border-ink-line bg-ink-soft p-6 sm:p-10 md:p-14"
+      data-reveal="up"
+    >
+      <div class="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+        <div>
+          <h2 class="display-xl max-w-[14ch]">Let's make something worth running.</h2>
+          <p class="mt-6 max-w-md font-sans text-bone-dim">
+            Send the brief, the product, and the goal. I'll come back with
+            concepts and a quote — usually within a day.
+          </p>
+          <p class="mt-6 font-sans text-sm text-bone-mute">
+            Prefer email? <a
+              href={`mailto:${site.contact.brandEmail}`}
+              class="link-underline break-all text-bone-dim">{site.contact.brandEmail}</a
+            >
+          </p>
+        </div>
+        <InquiryForm
+          client:visible
+          accessKey={site.contact.web3formsKey}
+          fallbackEmail={site.contact.brandEmail}
+        />
+      </div>
     </div>
   </section>
 </Base>
