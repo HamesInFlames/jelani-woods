@@ -64,13 +64,13 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
               pointerEvents: open ? 'auto' : 'none',
             }}
             aria-hidden={!open}
+            inert={!open}
           >
             <button
               type="button"
               aria-label="Close menu"
               onClick={() => setOpen(false)}
               className="absolute right-5 top-5 flex h-11 w-11 items-center justify-center"
-              tabIndex={open ? 0 : -1}
             >
               <span className="relative block h-7 w-7">
                 <span className="absolute left-0 top-1/2 block h-[2px] w-7 -translate-y-1/2 rotate-45 bg-bone" />

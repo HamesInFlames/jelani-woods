@@ -94,11 +94,11 @@ const crumbs = breadcrumbSchema([
   <section class="border-y border-ink-line bg-ink-soft py-20 md:py-28">
     <div class="shell">
       <SectionHead eyebrow="Mini media kit" index="02" title="The numbers." class="mb-12" />
-      <div class="grid grid-cols-2 gap-y-12 md:grid-cols-4 md:gap-8">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
         {
           stats.map((s) => (
-            <div data-reveal="up">
-              <p class="font-display text-5xl leading-none text-bone md:text-7xl">{s.n}</p>
+            <div class="min-w-0" data-reveal="up">
+              <p class="font-display text-5xl leading-none text-bone md:text-6xl xl:text-7xl">{s.n}</p>
               <p class="mt-3 max-w-[22ch] font-sans text-sm text-bone-dim">{s.l}</p>
             </div>
           ))
@@ -208,7 +208,7 @@ const crumbs = breadcrumbSchema([
 
   <!-- CTA -->
   <section class="shell pb-24 md:pb-36">
-    <div class="rounded-2xl border border-ink-line bg-ink-soft p-10 md:p-16" data-reveal="up">
+    <div class="rounded-2xl border border-ink-line bg-ink-soft p-6 sm:p-10 md:p-16" data-reveal="up">
       <h2 class="display-xl max-w-[16ch]">Let's make something worth running.</h2>
       <p class="mt-6 max-w-md font-sans text-bone-dim">
         Send the brief, the product, and the goal. I'll come back with concepts
@@ -216,7 +216,7 @@ const crumbs = breadcrumbSchema([
       </p>
       <a
         href={`mailto:${site.contact.brandEmail}`}
-        class="mt-8 inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        class="mt-8 inline-flex max-w-full items-center justify-center break-all bg-rust px-5 py-4 text-center font-sans text-xs font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright sm:px-7 sm:text-sm"
       >
         {site.contact.brandEmail}
       </a>

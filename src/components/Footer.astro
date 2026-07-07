@@ -13,19 +13,19 @@ const year = 2026;
         </p>
         <a
           href={site.contact.applyUrl}
-          class="link-underline mt-8 inline-block font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+          class="link-underline mt-8 inline-block py-2 font-sans text-sm font-semibold uppercase tracking-[0.16em]"
         >
           Apply to work with me →
         </a>
       </div>
 
-      <nav aria-label="Footer" class="flex flex-col gap-3">
+      <nav aria-label="Footer" class="flex flex-col gap-1">
         <p class="eyebrow mb-2">Pages</p>
         {
           nav.map((item) => (
             <a
               href={item.href}
-              class="font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+              class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
             >
               {item.label}
             </a>
@@ -33,11 +33,11 @@ const year = 2026;
         }
       </nav>
 
-      <div class="flex flex-col gap-3">
+      <div class="flex flex-col gap-1">
         <p class="eyebrow mb-2">Connect</p>
         <a
           href={site.social.instagram}
-          class="font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
           rel="me noopener"
           target="_blank"
         >
@@ -45,13 +45,13 @@ const year = 2026;
         </a>
         <a
           href={`mailto:${site.contact.email}`}
-          class="font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
         >
           {site.contact.email}
         </a>
         <a
           href={`mailto:${site.contact.brandEmail}`}
-          class="font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
         >
           Brand & UGC inquiries
         </a>
