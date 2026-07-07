@@ -1,0 +1,201 @@
+---
+import Base from '../layouts/Base.astro';
+import Frame from '../components/Frame.astro';
+import SectionHead from '../components/SectionHead.astro';
+import InstagramGrid from '../components/InstagramGrid.tsx';
+import { site, brands } from '../data/site';
+import { personSchema, localBusinessSchema } from '../data/schema';
+
+const title = 'Personal Trainer & Bodybuilding Coach in Toronto | Jelani Woods';
+const description =
+  'Jelani Woods — IFBB road-to-pro bodybuilding competitor, online coach, and fitness content creator in Toronto. Apply for 1:1 coaching or brand & UGC work.';
+---
+
+<Base title={title} description={description} schema={[personSchema, localBusinessSchema]}>
+  <!-- (a) HERO -------------------------------------------------------- -->
+  <section class="relative flex min-h-[100svh] items-end overflow-hidden pt-16">
+    <div class="absolute inset-0">
+      <Frame
+        class="h-full w-full"
+        ratio="auto"
+        label="Hero: strongest stage / physique photograph, full-bleed. Jelani's own or licensed shoot."
+        eyebrow="Hero photograph"
+      />
+    </div>
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/40 to-ink/70"
+    >
+    </div>
+
+    <div class="shell relative z-10 pb-14 md:pb-24">
+      <p class="eyebrow mb-6" data-reveal="up">{site.positioning}</p>
+      <h1 class="display-hero" data-reveal="up">
+        Jelani<br /><span class="text-rust">Woods</span>
+      </h1>
+      <p class="lede mt-8 max-w-xl" data-reveal="up">
+        Fifteen years under the bar. Four-time medalist chasing the pro card —
+        and the coach who turns that obsession into your results.
+      </p>
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row" data-reveal="up">
+        <a
+          href={site.contact.applyUrl}
+          class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        >
+          Apply to Work With Me
+        </a>
+        <a
+          href="/ugc"
+          class="inline-flex items-center justify-center border border-bone/30 px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:border-bone"
+        >
+          Brand / UGC Inquiries
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- (b) WHO I AM ----------------------------------------------------- -->
+  <section class="shell py-20 md:py-32">
+    <div class="grid gap-12 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-20">
+      <div data-reveal="up">
+        <p class="eyebrow mb-6">Who I am</p>
+        <p class="lede">
+          I'm a Toronto-based bodybuilder in the road-to-pro conversation, a
+          coach, and a creator. I've spent nearly fifteen years learning how a
+          body actually changes — then learning how to explain it so it works
+          for someone who isn't me.
+        </p>
+        <a
+          href="/about"
+          class="link-underline mt-8 inline-block font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+        >
+          What I stand for →
+        </a>
+      </div>
+      <Frame
+        ratio="5/4"
+        label="Portrait or gym-environment shot. Warm, editorial, high-contrast."
+        eyebrow="Portrait"
+        class="rounded-sm"
+        data-reveal="up"
+      />
+    </div>
+  </section>
+
+  <!-- (c) CAREER BAND -------------------------------------------------- -->
+  <section class="relative border-y border-ink-line bg-ink-soft py-20 md:py-32">
+    <div class="shell">
+      <SectionHead
+        eyebrow="The record"
+        index="01"
+        title="A career built<br/>on the stage."
+      />
+      <div class="mt-14 grid grid-cols-2 gap-y-12 md:grid-cols-4 md:gap-8">
+        {
+          [
+            { n: '15', l: 'Years in the sport' },
+            { n: '4×', l: 'Competition medalist' },
+            { n: 'IFBB', l: 'Road to pro' },
+            { n: "'26", l: 'Nationals + next chapter' },
+          ].map((stat) => (
+            <div data-reveal="up">
+              <p class="font-display text-6xl leading-none text-bone md:text-8xl">
+                {stat.n}
+              </p>
+              <p class="mt-3 font-sans text-sm text-bone-dim">{stat.l}</p>
+            </div>
+          ))
+        }
+      </div>
+      <a
+        href="/career"
+        class="link-underline mt-14 inline-block font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+      >
+        Read the full career story →
+      </a>
+    </div>
+  </section>
+
+  <!-- (d) WORK WITH ME TEASER ------------------------------------------ -->
+  <section class="shell py-20 md:py-32">
+    <div class="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
+      <Frame
+        ratio="4/5"
+        label="Coaching moment — spotting, posing, or check-in. Show the work, not the trophy."
+        eyebrow="Coaching"
+        class="order-2 md:order-1"
+        data-reveal="up"
+      />
+      <div class="order-1 md:order-2" data-reveal="up">
+        <p class="eyebrow mb-6">Work with me</p>
+        <h2 class="display-xl">Coaching for<br />people who<br /><span class="text-rust">mean it.</span></h2>
+        <p class="mt-8 max-w-md font-sans text-bone-dim">
+          1:1 online coaching and contest prep for lifters serious about the
+          next twelve months — not the next twelve days. Training, nutrition,
+          peaking, posing. Selective by design.
+        </p>
+        <a
+          href="/work-with-me"
+          class="mt-8 inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        >
+          See coaching + apply
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- (e) BRAND / UGC STRIP -------------------------------------------- -->
+  <section class="border-y border-ink-line bg-ink-soft py-16 md:py-24">
+    <div class="shell">
+      <div class="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div data-reveal="up">
+          <p class="eyebrow mb-5">Trusted by brands</p>
+          <h2 class="display-xl max-w-[14ch]">Content that<br />actually converts.</h2>
+        </div>
+        <a
+          href="/ugc"
+          class="link-underline font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+        >
+          See the portfolio →
+        </a>
+      </div>
+      <div
+        class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-ink-line bg-ink-line sm:grid-cols-3"
+      >
+        {
+          brands.map((brand) => (
+            <div class="flex flex-col items-start gap-1 bg-ink px-6 py-8" data-reveal="up">
+              <span class="font-display text-2xl uppercase text-bone">{brand.name}</span>
+              <span class="font-sans text-xs uppercase tracking-[0.16em] text-bone-mute">
+                {brand.note}
+              </span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- (f) INSTAGRAM ---------------------------------------------------- -->
+  <section class="shell py-20 md:py-32">
+    <div class="mb-10 flex items-end justify-between gap-6" data-reveal="up">
+      <div>
+        <p class="eyebrow mb-4">On the grid</p>
+        <h2 class="display-xl">Latest from<br />the feed</h2>
+      </div>
+      <a
+        href={site.social.instagram}
+        target="_blank"
+        rel="noopener"
+        class="link-underline hidden font-sans text-sm font-semibold uppercase tracking-[0.16em] sm:inline-block"
+      >
+        {site.social.instagramHandle} →
+      </a>
+    </div>
+    <InstagramGrid
+      client:visible
+      handle={site.social.instagramHandle}
+      profileUrl={site.social.instagram}
+      count={6}
+    />
+  </section>
+</Base>

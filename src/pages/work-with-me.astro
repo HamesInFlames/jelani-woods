@@ -1,0 +1,187 @@
+---
+import Base from '../layouts/Base.astro';
+import Frame from '../components/Frame.astro';
+import SectionHead from '../components/SectionHead.astro';
+import { site, coachingTiers, testimonials } from '../data/site';
+import {
+  localBusinessSchema,
+  coachingServiceSchema,
+  breadcrumbSchema,
+} from '../data/schema';
+
+const title = 'Online Bodybuilding Coach in Toronto | Work With Jelani Woods';
+const description =
+  'Selective 1:1 online coaching and contest prep with Toronto bodybuilder Jelani Woods. Training, nutrition, peaking, and posing. Apply to work with me.';
+
+const forYou = [
+  'You want to compete — or finally run a real, structured offseason.',
+  'You’re done guessing and want a system with weekly accountability.',
+  'You’ll do the work between check-ins, not just on check-in day.',
+];
+const notForYou = [
+  'You want a 30-day shortcut or a “secret” protocol.',
+  'You won’t track training or nutrition with any consistency.',
+  'You’re looking for the cheapest coach, not the right one.',
+];
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Work With Me', path: '/work-with-me' },
+]);
+---
+
+<Base
+  title={title}
+  description={description}
+  schema={[localBusinessSchema, coachingServiceSchema, crumbs]}
+>
+  <!-- HERO / SALES -->
+  <section class="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-24">
+    <div class="shell grid gap-12 md:grid-cols-[1.1fr_0.9fr] md:items-end md:gap-16">
+      <div>
+        <p class="eyebrow mb-6" data-reveal="up">1:1 online coaching · Toronto + worldwide</p>
+        <h1 class="display-hero max-w-[12ch]" data-reveal="up">
+          Coached<br />by a<br /><span class="text-rust">competitor.</span>
+        </h1>
+        <p class="lede mt-10 max-w-xl" data-reveal="up">
+          Most coaches read about peaking. I'm still doing it. When you work with
+          me you get the exact system I run on my own body — adapted to yours,
+          adjusted every week.
+        </p>
+      </div>
+      <Frame
+        ratio="4/5"
+        eyebrow="Coaching"
+        label="Coach-and-athlete moment: check-in, posing, or a lift being cued."
+        class="rounded-sm"
+        data-reveal="up"
+      />
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="border-y border-ink-line bg-ink-soft py-20 md:py-28">
+    <div class="shell">
+      <SectionHead eyebrow="Read this first" index="01" title="Who this is for." class="mb-12" />
+      <div class="grid gap-px overflow-hidden border border-ink-line bg-ink-line md:grid-cols-2">
+        <div class="bg-ink p-8 md:p-10" data-reveal="up">
+          <p class="mb-6 font-display text-2xl uppercase text-bone">A good fit if</p>
+          <ul class="flex flex-col gap-4">
+            {
+              forYou.map((f) => (
+                <li class="flex gap-3 font-sans text-bone-dim">
+                  <span class="mt-1 text-rust">✓</span>
+                  {f}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div class="bg-ink p-8 md:p-10" data-reveal="up">
+          <p class="mb-6 font-display text-2xl uppercase text-bone-mute">Not a fit if</p>
+          <ul class="flex flex-col gap-4">
+            {
+              notForYou.map((f) => (
+                <li class="flex gap-3 font-sans text-bone-mute">
+                  <span class="mt-1">✕</span>
+                  {f}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIERS -->
+  <section class="shell py-20 md:py-32">
+    <SectionHead eyebrow="The offer" index="02" title="How we work." class="mb-12" />
+    <div class="grid gap-5 md:grid-cols-2">
+      {
+        coachingTiers.map((tier) => (
+          <div class="flex flex-col rounded-lg border border-ink-line bg-ink-soft p-8 md:p-10" data-reveal="up">
+            <div class="flex items-baseline justify-between gap-4">
+              <h3 class="font-display text-3xl uppercase text-bone">{tier.name}</h3>
+              <span class="font-sans text-xs uppercase tracking-[0.16em] text-rust-bright">
+                {tier.price}
+              </span>
+            </div>
+            <p class="mt-1 font-sans text-xs uppercase tracking-[0.16em] text-bone-mute">
+              {tier.frame}
+            </p>
+            <p class="mt-5 font-sans leading-relaxed text-bone-dim">{tier.summary}</p>
+            <ul class="mt-6 flex flex-col gap-3 border-t border-ink-line pt-6">
+              {tier.includes.map((inc) => (
+                <li class="flex gap-3 font-sans text-sm text-bone-dim">
+                  <span class="text-rust">—</span>
+                  {inc}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-6 font-sans text-xs text-bone-mute">
+      Pricing is shared inside the application so I can match the right tier to
+      your goals and timeline.
+    </p>
+  </section>
+
+  <!-- PROOF -->
+  <section class="border-y border-ink-line bg-ink-soft py-20 md:py-28">
+    <div class="shell">
+      <SectionHead eyebrow="Proof" index="03" title="In their words." class="mb-12" />
+      <div class="grid gap-5 md:grid-cols-2">
+        {
+          testimonials.map((t) => (
+            <figure class="flex flex-col justify-between gap-8 rounded-lg border border-ink-line bg-ink p-8 md:p-10" data-reveal="up">
+              <blockquote class="font-serif text-2xl leading-snug text-bone md:text-3xl">
+                “{t.quote}”
+              </blockquote>
+              <figcaption>
+                <p class="font-sans text-sm font-semibold uppercase tracking-[0.14em] text-bone">
+                  {t.name}
+                </p>
+                <p class="mt-1 font-sans text-xs text-bone-mute">{t.detail}</p>
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <div class="mt-6 grid gap-4 sm:grid-cols-3" data-reveal="up">
+        <Frame ratio="4/5" eyebrow="Result" label="Client transformation — before / after (with permission)." class="rounded-sm" />
+        <Frame ratio="4/5" eyebrow="Result" label="Client transformation — stage or physique update." class="rounded-sm" />
+        <Frame ratio="4/5" eyebrow="Result" label="Video testimonial thumbnail or progress shot." class="rounded-sm" />
+      </div>
+    </div>
+  </section>
+
+  <!-- APPLICATION -->
+  <section id="apply" class="py-24 md:py-36">
+    <div class="shell">
+      <div class="mx-auto max-w-3xl text-center" data-reveal="up">
+        <p class="eyebrow mb-6">By application</p>
+        <h2 class="display-hero">Apply to<br /><span class="text-rust">work with me.</span></h2>
+        <p class="lede mt-8">
+          Coaching is selective — a few serious athletes at a time. Tell me your
+          goals, your timeline, and where you're starting. If it's a fit, we'll
+          talk. If it isn't, I'll tell you honestly.
+        </p>
+        <a
+          href={site.contact.applyUrl}
+          target="_blank"
+          rel="noopener"
+          class="mt-10 inline-flex items-center justify-center bg-rust px-9 py-5 font-sans text-base font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        >
+          Start your application
+        </a>
+        <p class="mt-6 font-sans text-xs text-bone-mute">
+          Opens the coaching application + intake. Replace the link with your live
+          Calendly/Typeform in <code class="text-bone-dim">src/data/site.ts</code>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

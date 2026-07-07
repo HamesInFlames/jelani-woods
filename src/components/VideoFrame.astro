@@ -1,0 +1,60 @@
+---
+/**
+ * 9:16 phone-frame video slot for the UGC portfolio.
+ * Pass `src` (an mp4 in /public or a hosted URL) + `poster` to embed a real
+ * clip. Without `src` it renders a styled placeholder tile.
+ */
+interface Props {
+  title: string;
+  metric?: string;
+  brand?: string;
+  src?: string;
+  poster?: string;
+}
+const { title, metric, brand, src, poster } = Astro.props;
+---
+
+<figure class="group relative overflow-hidden rounded-[1.75rem] border border-ink-line bg-ink-soft">
+  <div class="relative grain-overlay" style="aspect-ratio:9/16">
+    {
+      src ? (
+        <video
+          class="h-full w-full object-cover"
+          src={src}
+          poster={poster}
+          controls
+          playsinline
+          preload="none"
+        />
+      ) : (
+        <>
+          <div class="frame-grain absolute inset-0"></div>
+          <div class="absolute inset-0 flex items-center justify-center">
+            <span
+              class="flex h-14 w-14 items-center justify-center rounded-full border border-bone/40 text-bone transition-transform duration-300 group-hover:scale-110"
+            >
+              <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
+                <path d="M0 1.3v15.4a1 1 0 0 0 1.5.87l13-7.7a1 1 0 0 0 0-1.74l-13-7.7A1 1 0 0 0 0 1.3Z" />
+              </svg>
+            </span>
+          </div>
+        </>
+      )
+    }
+    <figcaption
+      class="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-ink/90 to-transparent p-4 pt-12"
+    >
+      <div>
+        {brand && <span class="block font-sans text-[0.6rem] uppercase tracking-[0.22em] text-rust-bright">{brand}</span>}
+        <span class="mt-1 block font-sans text-sm font-medium text-bone">{title}</span>
+      </div>
+      {
+        metric && (
+          <span class="shrink-0 font-display text-xl leading-none text-bone">
+            {metric}
+          </span>
+        )
+      }
+    </figcaption>
+  </div>
+</figure>

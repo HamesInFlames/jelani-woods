@@ -1,0 +1,145 @@
+---
+import Base from '../layouts/Base.astro';
+import Frame from '../components/Frame.astro';
+import { site } from '../data/site';
+import { personSchema, breadcrumbSchema } from '../data/schema';
+
+const title = 'About Jelani Woods | Toronto Bodybuilding Coach & Creator';
+const description =
+  'What Jelani Woods stands for — the philosophy, credentials, and standards behind his coaching. Nearly fifteen years in fitness, F45 coaching, and a competitor still in the game.';
+
+const values = [
+  {
+    k: 'Honesty over hype',
+    v: 'No miracle protocols, no secret sauce. Progress is adherence, recovery, and time applied without flinching. I coach the boring truth because it works.',
+  },
+  {
+    k: 'Earned, not sold',
+    v: 'I still diet down and step on stage. Everything I ask of a client I have asked of myself first, in the worst week of a prep.',
+  },
+  {
+    k: 'The whole athlete',
+    v: 'Training is the easy part. Sleep, stress, food you’ll actually eat, a life you can sustain — that’s where physiques are really built.',
+  },
+];
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+]);
+---
+
+<Base title={title} description={description} schema={[personSchema, crumbs]}>
+  <!-- HERO -->
+  <section class="pt-32 pb-8 md:pt-44 md:pb-16">
+    <div class="shell">
+      <p class="eyebrow mb-6" data-reveal="up">What I stand for</p>
+      <h1 class="display-hero max-w-[13ch]" data-reveal="up">
+        The work<br />is the<br /><span class="text-rust">whole point.</span>
+      </h1>
+    </div>
+  </section>
+
+  <!-- PORTRAIT + LEDE -->
+  <section class="shell pb-20 md:pb-32">
+    <div class="grid gap-12 md:grid-cols-2 md:items-end md:gap-16">
+      <Frame
+        ratio="4/5"
+        eyebrow="Portrait"
+        label="Large-format portrait. Direct, warm, high-contrast — the person, not the pose."
+        class="rounded-sm"
+        data-reveal="up"
+      />
+      <div data-reveal="up">
+        <p class="lede">
+          I started lifting at fifteen because I wanted to change something I
+          could control. Nearly fifteen years later, the barbell is still the
+          most honest teacher I've found — and coaching is how I pass on what it
+          taught me.
+        </p>
+        <p class="mt-6 font-sans leading-relaxed text-bone-dim">
+          I've competed on the road-to-pro circuit, medaled four times, and
+          coached through F45 and my own online practice. I've also missed
+          peaks, mistimed diets, and learned more from those than from any win.
+          That's what you're hiring: a coach who has been wrong in every way you
+          might be, and knows how to make it right.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="border-y border-ink-line bg-ink-soft py-20 md:py-32">
+    <div class="shell">
+      <p class="eyebrow mb-12" data-reveal="up">Three things I don't move on</p>
+      <div class="grid gap-px overflow-hidden border border-ink-line bg-ink-line md:grid-cols-3">
+        {
+          values.map((item, i) => (
+            <div class="flex flex-col gap-5 bg-ink p-8 md:p-10" data-reveal="up">
+              <span class="font-display text-4xl text-rust">0{i + 1}</span>
+              <h2 class="font-display text-2xl uppercase leading-tight text-bone">
+                {item.k}
+              </h2>
+              <p class="font-sans text-sm leading-relaxed text-bone-dim">{item.v}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PULL QUOTE -->
+  <section class="py-24 md:py-36">
+    <div class="shell">
+      <blockquote class="max-w-4xl" data-reveal="up">
+        <p class="font-serif text-3xl italic leading-tight md:text-5xl">
+          “I don't want clients who need me forever. I want to teach you the
+          system so well that one day you don't.”
+        </p>
+        <footer class="mt-8 font-sans text-sm uppercase tracking-[0.2em] text-bone-mute">
+          — Jelani Woods
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- CREDENTIALS -->
+  <section class="border-t border-ink-line py-20 md:py-28">
+    <div class="shell grid gap-12 md:grid-cols-[1fr_1.2fr] md:gap-20">
+      <div data-reveal="up">
+        <p class="eyebrow mb-6">Credentials</p>
+        <h2 class="display-xl">On paper<br />& on stage.</h2>
+      </div>
+      <ul class="flex flex-col divide-y divide-ink-line" data-reveal="up">
+        {
+          [
+            ['F45 Training coach', 'Group and personal training'],
+            ['Competitive bodybuilder', 'Road-to-pro, four-time medalist'],
+            ['Online coaching practice', 'Contest prep + lifestyle transformation'],
+            ['~15 years in fitness', 'Training, nutrition, and peaking'],
+          ].map(([k, v]) => (
+            <li class="flex items-baseline justify-between gap-6 py-5">
+              <span class="font-display text-xl uppercase text-bone">{k}</span>
+              <span class="text-right font-sans text-sm text-bone-mute">{v}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <p class="shell mt-8 font-sans text-xs text-bone-mute">
+      Note: confirm and list exact certification names (CPT, nutrition) before launch.
+    </p>
+  </section>
+
+  <!-- CTA -->
+  <section class="shell pb-24 md:pb-36">
+    <div class="flex flex-col items-start gap-6" data-reveal="up">
+      <a
+        href={site.contact.applyUrl}
+        class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+      >
+        Apply to work with me
+      </a>
+    </div>
+  </section>
+</Base>

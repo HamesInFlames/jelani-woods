@@ -1,0 +1,51 @@
+---
+/**
+ * Editorial photo slot. Renders as a deliberate, grained frame while real
+ * photography is dropped in. When `src` is provided it renders that image;
+ * otherwise it shows an intentional placeholder with a note about the shot.
+ *
+ * Drop real images into src/assets and pass an imported asset to `src` to use
+ * Astro's optimized <Image>. See README for the asset checklist.
+ */
+interface Props {
+  label?: string;
+  ratio?: string; // e.g. "4/5", "16/9", "9/16"
+  eyebrow?: string;
+  class?: string;
+  [key: `data-${string}`]: string | undefined;
+}
+
+const {
+  label = 'Photography',
+  ratio = '4/5',
+  eyebrow,
+  class: className = '',
+  ...rest
+} = Astro.props;
+---
+
+<figure
+  class:list={['relative overflow-hidden grain-overlay', className]}
+  style={`aspect-ratio:${ratio}`}
+  {...rest}
+>
+  <div class="frame-grain absolute inset-0"></div>
+  <div class="absolute inset-0 flex flex-col justify-between p-4 sm:p-6">
+    <div class="flex items-center justify-between">
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <span
+        class="ml-auto font-sans text-[0.6rem] uppercase tracking-[0.25em] text-bone-mute"
+        >Image</span
+      >
+    </div>
+    <figcaption
+      class="max-w-[24ch] font-sans text-xs leading-relaxed text-bone-dim"
+    >
+      {label}
+    </figcaption>
+  </div>
+  <div
+    class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink-line"
+  >
+  </div>
+</figure>

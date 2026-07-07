@@ -1,0 +1,199 @@
+@import 'tailwindcss';
+
+/* Self-hosted type system — no Google Fonts CDN, no Inter.
+   Display: Anton (condensed athletic). Body: Archivo (grotesk).
+   Editorial accents / pull-quotes: Fraunces (optical serif). */
+@import '@fontsource/anton/400.css';
+@import '@fontsource-variable/archivo/wght.css';
+@import '@fontsource-variable/archivo/wght-italic.css';
+@import '@fontsource-variable/fraunces/wght.css';
+@import '@fontsource-variable/fraunces/wght-italic.css';
+
+@theme {
+  /* ---- Palette: warm near-black base, bone off-white, one oxblood accent ---- */
+  --color-ink: #0b0a09;
+  --color-ink-soft: #17130f;
+  --color-ink-line: #2a2420;
+  --color-bone: #efe8d9;
+  --color-bone-dim: #c8bfad;
+  --color-bone-mute: #8f877a;
+  --color-rust: #c24a32;
+  --color-rust-bright: #dd5a3c;
+  --color-rust-deep: #8b2f1f;
+  --color-gold: #c6a15b;
+
+  /* ---- Type families ---- */
+  --font-display: 'Anton', 'Arial Narrow', system-ui, sans-serif;
+  --font-sans: 'Archivo Variable', system-ui, -apple-system, sans-serif;
+  --font-serif: 'Fraunces Variable', Georgia, 'Times New Roman', serif;
+
+  /* ---- Editorial spacing rhythm ---- */
+  --spacing-gutter: clamp(1.25rem, 5vw, 6rem);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Base                                                                    */
+/* ---------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-ink);
+    color: var(--color-bone);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+  }
+
+  ::selection {
+    background: var(--color-rust);
+    color: var(--color-bone);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-rust-bright);
+    outline-offset: 3px;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Utilities / components                                                  */
+/* ---------------------------------------------------------------------- */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 88rem;
+    margin-inline: auto;
+    padding-inline: var(--spacing-gutter);
+  }
+
+  .display-hero {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.84;
+    letter-spacing: 0.005em;
+    font-size: clamp(3.5rem, 15vw, 13rem);
+  }
+
+  .display-xl {
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    line-height: 0.86;
+    font-size: clamp(2.75rem, 9vw, 7rem);
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-weight: 600;
+    font-size: 0.72rem;
+    color: var(--color-rust-bright);
+  }
+
+  .lede {
+    font-family: var(--font-serif);
+    font-size: clamp(1.25rem, 2.4vw, 1.9rem);
+    line-height: 1.4;
+    font-weight: 400;
+    color: var(--color-bone);
+  }
+
+  /* A styled photo slot that reads as an intentional editorial frame while
+     real photography is dropped in. See src/components/Frame.astro. */
+  .frame-grain {
+    background-image:
+      linear-gradient(135deg, rgba(194, 74, 50, 0.14), transparent 55%),
+      linear-gradient(315deg, rgba(198, 161, 91, 0.1), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
+    background-blend-mode: overlay;
+    background-color: #151009;
+  }
+
+  .grain-overlay::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .rule {
+    height: 1px;
+    background: var(--color-ink-line);
+    border: 0;
+  }
+
+  .link-underline {
+    background-image: linear-gradient(var(--color-rust), var(--color-rust));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 100% 1px;
+    transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    padding-bottom: 2px;
+  }
+  .link-underline:hover {
+    background-size: 100% 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Scroll-driven reveals (progressive enhancement)                         */
+/* Falls back to fully visible where unsupported or reduced-motion.        */
+/* ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 32%;
+    }
+    [data-reveal='up'] {
+      animation-name: reveal-up;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(2.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
