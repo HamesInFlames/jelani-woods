@@ -30,8 +30,11 @@ const { title, metric, brand, src, poster } = Astro.props;
         <>
           <div class="frame-grain absolute inset-0"></div>
           <div class="absolute inset-0 flex items-center justify-center">
+            {/* Play button hover: scale 1 → 1.05 max at --dur-base (MOTION.md
+                §4.2 cap). Transform is motion-safe gated (§5.2) — reduced
+                motion gets no scale movement. */}
             <span
-              class="flex h-14 w-14 items-center justify-center rounded-full border border-bone/40 text-bone transition-transform duration-300 group-hover:scale-110"
+              class="flex h-14 w-14 items-center justify-center rounded-full border border-bone/40 text-bone transition-transform duration-[var(--dur-base)] ease-[var(--ease-out)] motion-safe:group-hover:scale-105"
             >
               <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor" aria-hidden="true">
                 <path d="M0 1.3v15.4a1 1 0 0 0 1.5.87l13-7.7a1 1 0 0 0 0-1.74l-13-7.7A1 1 0 0 0 0 1.3Z" />

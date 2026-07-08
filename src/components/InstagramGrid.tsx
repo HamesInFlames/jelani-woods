@@ -78,13 +78,17 @@ export default function InstagramGrid({
                 rel="noopener"
                 className="group relative block aspect-square overflow-hidden bg-ink-soft"
               >
+                {/* MOTION.md §4.2 media hover: scale 1 → 1.05 max at --dur-slow.
+                    The transform is motion-safe gated (§5.2) — reduced motion
+                    gets no scale movement at all. */}
                 <img
                   src={post.sizes?.medium?.mediaUrl ?? post.mediaUrl}
                   alt={post.prunedCaption?.slice(0, 120) ?? `Instagram post from ${handle}`}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover transition-transform duration-[var(--dur-slow)] ease-[var(--ease-out)] motion-safe:group-hover:scale-105"
                 />
-                <span className="absolute inset-0 bg-ink/0 transition-colors duration-300 group-hover:bg-ink/30" />
+                {/* Color-only hover — allowed under reduced motion at --dur-fast. */}
+                <span className="absolute inset-0 bg-ink/0 transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)] group-hover:bg-ink/30" />
               </a>
             ))
           : tiles.map((tile, i) => (
@@ -105,7 +109,8 @@ export default function InstagramGrid({
                     {tile.note}
                   </span>
                 </span>
-                <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink-line transition-colors duration-300 group-hover:ring-rust/60" />
+                {/* Color-only hover — allowed under reduced motion at --dur-fast. */}
+                <span className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-ink-line transition-colors duration-[var(--dur-fast)] ease-[var(--ease-out)] group-hover:ring-rust/60" />
               </a>
             ))}
       </div>
