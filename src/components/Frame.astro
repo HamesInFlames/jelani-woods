@@ -16,6 +16,7 @@ interface Props {
   eyebrow?: string;
   src?: ImageMetadata;
   alt?: string;
+  loading?: 'eager' | 'lazy';
   class?: string;
   [key: `data-${string}`]: string | undefined;
 }
@@ -26,6 +27,7 @@ const {
   eyebrow,
   src,
   alt,
+  loading = 'lazy',
   class: className = '',
   ...rest
 } = Astro.props;
@@ -52,7 +54,13 @@ const ratioClass = ratioClasses[ratio] ?? 'aspect-[4/5]';
 >
   {
     src ? (
-      <Image src={src} alt={alt ?? label} class="h-full w-full object-cover" />
+      <Image
+        src={src}
+        alt={alt ?? label}
+        loading={loading}
+        fetchpriority={loading === 'eager' ? 'high' : undefined}
+        class="h-full w-full object-cover"
+      />
     ) : (
       <>
         <div class="frame-grain absolute inset-0" />
