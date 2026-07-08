@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Frame from '../components/Frame.astro';
 import { site } from '../data/site';
 import { personSchema, breadcrumbSchema } from '../data/schema';
+import aboutPortrait from '../assets/placeholders/about-portrait.png';
 
 const title = 'About Jelani Woods | Toronto Bodybuilding Coach & Creator';
 const description =
@@ -45,6 +46,8 @@ const crumbs = breadcrumbSchema([
     <div class="grid gap-12 md:grid-cols-2 md:items-end md:gap-16">
       <Frame
         ratio="4/5"
+        src={aboutPortrait}
+        alt="Large-format portrait of Jelani Woods"
         eyebrow="Portrait"
         label="Large-format portrait. Direct, warm, high-contrast — the person, not the pose."
         class="rounded-sm"

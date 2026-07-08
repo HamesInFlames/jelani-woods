@@ -8,6 +8,10 @@ import {
   coachingServiceSchema,
   breadcrumbSchema,
 } from '../data/schema';
+import wwmCoaching from '../assets/placeholders/wwm-coaching.png';
+import resultTransformation from '../assets/placeholders/result-transformation.png';
+import resultPhysique from '../assets/placeholders/result-physique.png';
+import resultTestimonial from '../assets/placeholders/result-testimonial.png';
 
 const title = 'Online Bodybuilding Coach in Toronto | Work With Jelani Woods';
 const description =
@@ -51,6 +55,8 @@ const crumbs = breadcrumbSchema([
       </div>
       <Frame
         ratio="4/5"
+        src={wwmCoaching}
+        alt="Jelani Woods cueing an athlete during a coaching session"
         eyebrow="Coaching"
         label="Coach-and-athlete moment: check-in, posing, or a lift being cued."
         class="rounded-sm"
@@ -151,9 +157,9 @@ const crumbs = breadcrumbSchema([
         }
       </div>
       <div class="mt-6 grid gap-4 sm:grid-cols-3" data-reveal="up">
-        <Frame ratio="4/5" eyebrow="Result" label="Client transformation — before / after (with permission)." class="rounded-sm" />
-        <Frame ratio="4/5" eyebrow="Result" label="Client transformation — stage or physique update." class="rounded-sm" />
-        <Frame ratio="4/5" eyebrow="Result" label="Video testimonial thumbnail or progress shot." class="rounded-sm" />
+        <Frame ratio="4/5" src={resultTransformation} alt="Client transformation — before and after comparison" eyebrow="Result" label="Client transformation — before / after (with permission)." class="rounded-sm" />
+        <Frame ratio="4/5" src={resultPhysique} alt="Client physique update on stage" eyebrow="Result" label="Client transformation — stage or physique update." class="rounded-sm" />
+        <Frame ratio="4/5" src={resultTestimonial} alt="Client testimonial and progress shot" eyebrow="Result" label="Video testimonial thumbnail or progress shot." class="rounded-sm" />
       </div>
     </div>
   </section>

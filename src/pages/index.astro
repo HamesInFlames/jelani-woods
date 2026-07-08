@@ -5,6 +5,9 @@ import SectionHead from '../components/SectionHead.astro';
 import InstagramGrid from '../components/InstagramGrid.tsx';
 import { site, brands } from '../data/site';
 import { personSchema, localBusinessSchema, websiteSchema } from '../data/schema';
+import heroImage from '../assets/placeholders/hero.png';
+import homePortrait from '../assets/placeholders/home-portrait.png';
+import homeCoaching from '../assets/placeholders/home-coaching.png';
 
 const title = 'Personal Trainer & Bodybuilding Coach in Toronto | Jelani Woods';
 const description =
@@ -18,6 +21,8 @@ const description =
       <Frame
         class="h-full w-full"
         ratio="auto"
+        src={heroImage}
+        alt="Jelani Woods posing on stage under warm competition lighting"
         label="Hero: strongest stage / physique photograph, full-bleed. Jelani's own or licensed shoot."
         eyebrow="Hero photograph"
       />
@@ -73,6 +78,8 @@ const description =
       </div>
       <Frame
         ratio="5/4"
+        src={homePortrait}
+        alt="Portrait of Jelani Woods in a gym environment"
         label="Portrait or gym-environment shot. Warm, editorial, high-contrast."
         eyebrow="Portrait"
         class="rounded-sm"
@@ -120,6 +127,8 @@ const description =
     <div class="grid gap-12 md:grid-cols-[1.1fr_1fr] md:items-center md:gap-20">
       <Frame
         ratio="4/5"
+        src={homeCoaching}
+        alt="Jelani Woods coaching an athlete through a lift"
         label="Coaching moment — spotting, posing, or check-in. Show the work, not the trophy."
         eyebrow="Coaching"
         class="order-2 md:order-1"
