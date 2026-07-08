@@ -130,13 +130,33 @@ The `InstagramGrid` island degrades gracefully:
 > now requires a Professional account + Meta app review. Behold (or a manual
 > grid) avoids that maintenance burden.
 
-## Deploy to Cloudflare Pages
+## Deploy
+
+The site is fully static (`dist/`), so it can go on a static host or be served
+from a container.
+
+### Cloudflare Pages (recommended — free, static CDN)
 
 - **Build command:** `npm run build`
 - **Output directory:** `dist`
 - **Framework preset:** Astro
 
-No server runtime needed — it's fully static.
+The `public/_headers` file supplies security headers and long-cache rules on
+Cloudflare automatically. No server runtime needed.
+
+### Railway / Render / other Node hosts
+
+These run a container, so the app must **build** and then **serve** the static
+output on `0.0.0.0:$PORT`. That's wired up:
+
+- **Build:** `npm run build` (runs automatically via Nixpacks)
+- **Start:** `npm start` → `sirv dist --host 0.0.0.0 --port $PORT`
+
+`railway.json` pins both commands. ⚠️ The default `npm start` must **not** be
+`astro dev` — the dev server binds to `localhost` only and Railway can't route
+to it (and CSP is disabled in dev). `sirv` serves the built site on all
+interfaces on the platform-assigned port. Note: `public/_headers` is a
+Cloudflare feature and does not apply here; `sirv` handles caching via ETags.
 
 ## Roadmap (Phase 2)
 
