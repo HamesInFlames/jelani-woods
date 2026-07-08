@@ -3,7 +3,7 @@
 /* Self-hosted type system — no Google Fonts CDN, no Inter.
    Display: Anton (condensed athletic). Body: Archivo (grotesk).
    Editorial accents / pull-quotes: Fraunces (optical serif). */
-@import '@fontsource/anton/400.css';
+@import '@fontsource/anton/latin-400.css';
 @import '@fontsource-variable/archivo/wght.css';
 @import '@fontsource-variable/fraunces/wght.css';
 @import '@fontsource-variable/fraunces/wght-italic.css';
@@ -17,6 +17,7 @@
   --color-bone-dim: #c8bfad;
   --color-bone-mute: #8f877a;
   --color-rust: #c24a32;
+  --color-rust-ui: #b03e28;
   --color-rust-bright: #dd5a3c;
   --color-rust-deep: #8b2f1f;
   --color-gold: #c6a15b;
@@ -28,6 +29,14 @@
 
   /* ---- Editorial spacing rhythm ---- */
   --spacing-gutter: clamp(1.25rem, 5vw, 6rem);
+
+  /* ---- Motion tokens (MOTION.md §2–3). One curve site-wide.
+     JS mirrors live in src/data/motion.ts — keep in sync. ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 200ms;
+  --dur-base: 400ms;
+  --dur-slow: 700ms;
+  --dur-reveal: 600ms;
 }
 
 /* ---------------------------------------------------------------------- */
@@ -68,7 +77,7 @@
   }
 
   ::selection {
-    background: var(--color-rust);
+    background: var(--color-rust-ui);
     color: var(--color-bone);
   }
 
@@ -163,7 +172,7 @@
     background-position: 0 100%;
     background-repeat: no-repeat;
     background-size: 100% 1px;
-    transition: background-size 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: background-size var(--dur-base) var(--ease-out);
     padding-bottom: 2px;
   }
   .link-underline:hover {
@@ -195,4 +204,54 @@
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(2.5rem); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------------- */
+/* IntersectionObserver reveal fallback (Safari/Firefox — no view()).      */
+/* Driven by src/scripts/reveal.ts. The `.reveal-io` class is added to     */
+/* <html> ONLY by that script, and ONLY when scroll-driven reveals are     */
+/* unsupported and reduced-motion is off. Because the hidden initial state  */
+/* is scoped under `.reveal-io`, content stays visible for JS-disabled      */
+/* users, before the script runs, and in Chromium (which never gets the     */
+/* class). This block does not touch the @supports scroll-driven CSS above. */
+/* ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-io [data-reveal] {
+    opacity: 0;
+    transition:
+      opacity var(--dur-reveal) var(--ease-out),
+      transform var(--dur-reveal) var(--ease-out);
+  }
+  .reveal-io [data-reveal='up'] {
+    transform: translateY(2.5rem);
+  }
+  .reveal-io [data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Stagger: children of a [data-reveal-group] that are themselves reveals
+     get 70ms × index delay, capped at 350ms (index 5+ share the cap).
+     Applies to the IO fallback ONLY — scroll-driven reveals are progress-
+     bound to scroll position and cannot be time-delayed, so
+     [data-reveal-group] is inert on the Chromium path (a later task may
+     revisit). T3.3 applies this attribute to real pages. */
+  .reveal-io [data-reveal-group] > [data-reveal] {
+    transition-delay: 350ms;
+  }
+  .reveal-io [data-reveal-group] > [data-reveal]:nth-child(1) {
+    transition-delay: 0ms;
+  }
+  .reveal-io [data-reveal-group] > [data-reveal]:nth-child(2) {
+    transition-delay: 70ms;
+  }
+  .reveal-io [data-reveal-group] > [data-reveal]:nth-child(3) {
+    transition-delay: 140ms;
+  }
+  .reveal-io [data-reveal-group] > [data-reveal]:nth-child(4) {
+    transition-delay: 210ms;
+  }
+  .reveal-io [data-reveal-group] > [data-reveal]:nth-child(5) {
+    transition-delay: 280ms;
+  }
 }

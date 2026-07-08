@@ -4,6 +4,15 @@ import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Seo from '../components/Seo.astro';
 
+// Above-the-fold latin woff2 subsets, imported as hashed URLs so we can
+// preload them from <head>. Preloading fixes late font discovery: without
+// it these files aren't known until the (imported) stylesheet is parsed.
+// crossorigin is required on font preloads even same-origin, or the browser
+// double-fetches. See PLAN.md T2.8.
+import antonUrl from '@fontsource/anton/files/anton-latin-400-normal.woff2?url';
+import archivoUrl from '@fontsource-variable/archivo/files/archivo-latin-wght-normal.woff2?url';
+import frauncesUrl from '@fontsource-variable/fraunces/files/fraunces-latin-wght-normal.woff2?url';
+
 interface Props {
   title: string;
   description: string;
@@ -20,6 +29,9 @@ const { title, description, schema, ogType } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="generator" content={Astro.generator} />
+    <link rel="preload" href={antonUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={archivoUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={frauncesUrl} as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
@@ -31,7 +43,7 @@ const { title, description, schema, ogType } = Astro.props;
   <body>
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-rust focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:text-bone"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-rust-ui focus:px-4 focus:py-2 focus:font-sans focus:text-sm focus:text-bone"
       >Skip to content</a
     >
     <Nav />
@@ -39,5 +51,8 @@ const { title, description, schema, ogType } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <script>
+      import '../scripts/reveal.ts';
+    </script>
   </body>
 </html>

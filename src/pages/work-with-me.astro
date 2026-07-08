@@ -70,7 +70,7 @@ const crumbs = breadcrumbSchema([
             {
               forYou.map((f) => (
                 <li class="flex gap-3 font-sans text-bone-dim">
-                  <span class="mt-1 text-rust">✓</span>
+                  <span class="mt-1 text-rust" aria-hidden="true">✓</span>
                   {f}
                 </li>
               ))
@@ -83,7 +83,7 @@ const crumbs = breadcrumbSchema([
             {
               notForYou.map((f) => (
                 <li class="flex gap-3 font-sans text-bone-mute">
-                  <span class="mt-1">✕</span>
+                  <span class="mt-1" aria-hidden="true">✕</span>
                   {f}
                 </li>
               ))
@@ -173,7 +173,7 @@ const crumbs = breadcrumbSchema([
           href={site.contact.applyUrl}
           target="_blank"
           rel="noopener"
-          class="mt-10 inline-flex items-center justify-center bg-rust px-9 py-5 font-sans text-base font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+          class="mt-10 inline-flex items-center justify-center bg-rust-ui px-9 py-5 font-sans text-base font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
         >
           Start your application
         </a>

@@ -4,14 +4,14 @@ import Frame from '../components/Frame.astro';
 import SectionHead from '../components/SectionHead.astro';
 import InstagramGrid from '../components/InstagramGrid.tsx';
 import { site, brands } from '../data/site';
-import { personSchema, localBusinessSchema } from '../data/schema';
+import { personSchema, localBusinessSchema, websiteSchema } from '../data/schema';
 
 const title = 'Personal Trainer & Bodybuilding Coach in Toronto | Jelani Woods';
 const description =
   'Jelani Woods — IFBB road-to-pro bodybuilding competitor, online coach, and fitness content creator in Toronto. Apply for 1:1 coaching or brand & UGC work.';
 ---
 
-<Base title={title} description={description} schema={[personSchema, localBusinessSchema]}>
+<Base title={title} description={description} schema={[personSchema, localBusinessSchema, websiteSchema]}>
   <!-- (a) HERO -------------------------------------------------------- -->
   <section class="relative flex min-h-[100svh] items-end overflow-hidden pt-16">
     <div class="absolute inset-0">
@@ -39,7 +39,7 @@ const description =
       <div class="mt-10 flex flex-col gap-4 sm:flex-row" data-reveal="up">
         <a
           href={site.contact.applyUrl}
-          class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+          class="inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
         >
           Apply to Work With Me
         </a>
@@ -135,7 +135,7 @@ const description =
         </p>
         <a
           href="/work-with-me"
-          class="mt-8 inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+          class="mt-8 inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
         >
           See coaching + apply
         </a>

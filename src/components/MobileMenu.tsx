@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 interface NavItem {
@@ -16,6 +16,10 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => setMounted(true), []);
 
   useEffect(() => {
@@ -31,9 +35,49 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
+  // On open: move focus to the close button immediately (overlay is interactive
+  // right away even though opacity animates). On close: return focus to the
+  // hamburger trigger.
+  const wasOpen = useRef(false);
+  useEffect(() => {
+    if (open) {
+      closeButtonRef.current?.focus();
+    } else if (wasOpen.current) {
+      triggerRef.current?.focus();
+    }
+    wasOpen.current = open;
+  }, [open]);
+
+  // Focus trap: wrap Tab / Shift+Tab within the overlay's focusable elements.
+  const onOverlayKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== 'Tab' || !overlayRef.current) return;
+
+    const focusable = overlayRef.current.querySelectorAll<HTMLElement>(
+      'a[href], button:not([disabled])'
+    );
+    if (focusable.length === 0) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    const active = document.activeElement;
+
+    if (e.shiftKey) {
+      if (active === first || !overlayRef.current.contains(active)) {
+        e.preventDefault();
+        last.focus();
+      }
+    } else {
+      if (active === last || !overlayRef.current.contains(active)) {
+        e.preventDefault();
+        first.focus();
+      }
+    }
+  };
+
   return (
     <div className="md:hidden">
       <button
+        ref={triggerRef}
         type="button"
         aria-label="Open menu"
         aria-expanded={open}
@@ -48,6 +92,11 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
       {mounted &&
         createPortal(
           <div
+            ref={overlayRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            onKeyDown={onOverlayKeyDown}
             className={`fixed inset-0 z-[55] flex flex-col bg-ink px-6 pt-28 pb-10 transition-opacity duration-300 md:hidden ${
               open ? 'opacity-100' : 'pointer-events-none opacity-0'
             }`}
@@ -55,6 +104,7 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
             inert={!open}
           >
             <button
+              ref={closeButtonRef}
               type="button"
               aria-label="Close menu"
               onClick={() => setOpen(false)}
@@ -88,7 +138,7 @@ export default function MobileMenu({ items, current, applyUrl }: Props) {
             </nav>
             <a
               href={applyUrl}
-              className="mt-auto inline-flex items-center justify-center bg-rust px-6 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone"
+              className="mt-auto inline-flex items-center justify-center bg-rust-ui px-6 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone"
             >
               Apply to Work With Me
             </a>

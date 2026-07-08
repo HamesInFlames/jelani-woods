@@ -32,12 +32,14 @@ const imageUrl = new URL(image, Astro.site ?? site.url).href;
 <meta property="og:url" content={canonical} />
 <meta property="og:site_name" content={site.name} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={`${site.name} — ${site.positioning}`} />
 <meta property="og:locale" content="en_CA" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={`${site.name} — ${site.positioning}`} />
 
 {
   schema.map((block) => (

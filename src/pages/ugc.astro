@@ -10,7 +10,17 @@ const title = 'Brand & UGC Portfolio | Jelani Woods — Fitness Content Creator'
 const description =
   'Authentic fitness, supplement, and apparel UGC that converts. Toronto creator Jelani Woods — sample clips, audience stats, brand work, and starting-at package rates.';
 
-const clips = [
+interface Clip {
+  brand: string;
+  title: string;
+  metric: string;
+  /** Real hosted mp4. Set together with uploadDate to emit VideoObject schema. */
+  src?: string;
+  poster?: string;
+  uploadDate?: string;
+}
+
+const clips: Clip[] = [
   { brand: 'Grindstone Blends', title: 'Pre-workout unboxing + first-rep reaction', metric: '' },
   { brand: 'BuildApe', title: 'Fit check / apparel in the gym', metric: '' },
   { brand: 'Fitness', title: '“3 mistakes killing your back day”', metric: '' },
@@ -26,16 +36,19 @@ const stats = [
   { n: 'Fitness', l: 'Supplements · apparel · lifestyle' },
 ];
 
-// VideoObject schema for the sample reel slots.
-const videoSchema = clips.map((c) => ({
-  '@context': 'https://schema.org',
-  '@type': 'VideoObject',
-  name: `${c.brand} — ${c.title}`,
-  description: `UGC fitness content by Jelani Woods: ${c.title}.`,
-  thumbnailUrl: `${site.url}/og-default.png`,
-  uploadDate: '2026-01-01',
-  contentUrl: site.social.instagram,
-}));
+// VideoObject schema — only for clips with a real video, so no fabricated
+// structured data ships while the slots are placeholders.
+const videoSchema = clips
+  .filter((c) => c.src && c.uploadDate)
+  .map((c) => ({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `${c.brand} — ${c.title}`,
+    description: `UGC fitness content by Jelani Woods: ${c.title}.`,
+    thumbnailUrl: c.poster ? `${site.url}${c.poster}` : `${site.url}/og-default.png`,
+    uploadDate: c.uploadDate,
+    contentUrl: `${site.url}${c.src}`,
+  }));
 
 const crumbs = breadcrumbSchema([
   { name: 'Home', path: '/' },
@@ -59,7 +72,7 @@ const crumbs = breadcrumbSchema([
       <div class="mt-10 flex flex-wrap gap-4" data-reveal="up">
         <a
           href="#inquiry"
-          class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+          class="inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
         >
           Start a brand inquiry
         </a>
@@ -80,7 +93,13 @@ const crumbs = breadcrumbSchema([
       {
         clips.map((clip) => (
           <div data-reveal="up">
-            <VideoFrame brand={clip.brand} title={clip.title} metric={clip.metric} />
+            <VideoFrame
+              brand={clip.brand}
+              title={clip.title}
+              metric={clip.metric}
+              src={clip.src}
+              poster={clip.poster}
+            />
           </div>
         ))
       }
@@ -128,7 +147,7 @@ const crumbs = breadcrumbSchema([
   </section>
 
   <!-- PACKAGES -->
-  <section id="packages" class="border-t border-ink-line py-20 md:py-32">
+  <section id="packages" class="scroll-mt-24 border-t border-ink-line py-20 md:py-32">
     <div class="shell">
       <SectionHead
         eyebrow="Transparent rates"
@@ -154,7 +173,7 @@ const crumbs = breadcrumbSchema([
               data-reveal="up"
             >
               {pkg.featured && (
-                <span class="mb-4 self-start rounded-full bg-rust px-3 py-1 font-sans text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-bone">
+                <span class="mb-4 self-start rounded-full bg-rust-ui px-3 py-1 font-sans text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-bone">
                   Most booked
                 </span>
               )}
@@ -179,7 +198,7 @@ const crumbs = breadcrumbSchema([
                 class:list={[
                   'mt-8 inline-flex items-center justify-center px-6 py-3.5 font-sans text-sm font-semibold uppercase tracking-[0.16em] transition-colors',
                   pkg.featured
-                    ? 'bg-rust text-bone hover:bg-rust-bright'
+                    ? 'bg-rust-ui text-bone hover:bg-rust-deep'
                     : 'border border-bone/30 text-bone hover:border-bone',
                 ]}
               >

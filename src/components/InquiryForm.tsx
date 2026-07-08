@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Props {
   /** Web3Forms access key. Empty → falls back to a prefilled mailto. */
@@ -20,6 +20,11 @@ const budgets = [
 export default function InquiryForm({ accessKey, fallbackEmail }: Props) {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState('');
+  const successRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (status === 'ok') successRef.current?.focus();
+  }, [status]);
 
   async function handleSubmit(form: HTMLFormElement) {
     const data = new FormData(form);
@@ -76,7 +81,12 @@ export default function InquiryForm({ accessKey, fallbackEmail }: Props) {
 
   if (status === 'ok') {
     return (
-      <div className="rounded-xl border border-rust/40 bg-ink p-8 text-center">
+      <div
+        ref={successRef}
+        role="status"
+        tabIndex={-1}
+        className="rounded-xl border border-rust/40 bg-ink p-8 text-center"
+      >
         <p className="font-display text-3xl uppercase text-bone">Got it.</p>
         <p className="mt-3 font-sans text-sm text-bone-dim">
           {accessKey
@@ -183,7 +193,7 @@ export default function InquiryForm({ accessKey, fallbackEmail }: Props) {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright disabled:opacity-60"
+        className="inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep disabled:opacity-60"
       >
         {status === 'sending' ? 'Sending…' : 'Send brand inquiry'}
       </button>

@@ -6,6 +6,7 @@ export const personSchema = {
   '@type': 'Person',
   name: site.name,
   url: site.url,
+  image: `${site.url}/og-default.png`,
   jobTitle: 'Bodybuilding Coach & Content Creator',
   description:
     'IFBB road-to-pro bodybuilding competitor, online coach, and fitness content creator based in Toronto.',
@@ -23,6 +24,14 @@ export const personSchema = {
     'Nutrition',
     'Fitness content creation',
   ],
+};
+
+/** WebSite — used on Home. */
+export const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: site.url,
 };
 
 /** LocalBusiness / ProfessionalService — used on Home, Work With Me. */
