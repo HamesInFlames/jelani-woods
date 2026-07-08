@@ -33,15 +33,15 @@ const description =
     </div>
 
     <div class="shell relative z-10 pb-14 md:pb-24">
-      <p class="eyebrow mb-6" data-reveal="up">{site.positioning}</p>
-      <h1 class="display-hero" data-reveal="up">
+      <p class="eyebrow mb-6" data-load="1">{site.positioning}</p>
+      <h1 class="display-hero" data-load="2">
         Jelani<br /><span class="text-rust">Woods</span>
       </h1>
-      <p class="lede mt-8 max-w-xl" data-reveal="up">
+      <p class="lede mt-8 max-w-xl" data-load="3">
         Fifteen years under the bar. Four-time medalist chasing the pro card —
         and the coach who turns that obsession into your results.
       </p>
-      <div class="mt-10 flex flex-col gap-4 sm:flex-row" data-reveal="up">
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row" data-load="4">
         <a
           href={site.contact.applyUrl}
           class="inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
@@ -96,7 +96,10 @@ const description =
         index="01"
         title="A career built<br/>on the stage."
       />
-      <div class="mt-14 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
+      <div
+        class="mt-14 grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8"
+        data-reveal-group
+      >
         {
           [
             { n: '15', l: 'Years in the sport' },
@@ -169,6 +172,7 @@ const description =
       </div>
       <div
         class="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-sm border border-ink-line bg-ink-line sm:grid-cols-3"
+        data-reveal-group
       >
         {
           brands.map((brand) => (

@@ -34,8 +34,8 @@ const crumbs = breadcrumbSchema([
   <!-- HERO -->
   <section class="pt-32 pb-8 md:pt-44 md:pb-16">
     <div class="shell">
-      <p class="eyebrow mb-6" data-reveal="up">What I stand for</p>
-      <h1 class="display-hero max-w-[13ch]" data-reveal="up">
+      <p class="eyebrow mb-6" data-load="1">What I stand for</p>
+      <h1 class="display-hero max-w-[13ch]" data-load="2">
         The work<br />is the<br /><span class="text-rust">whole point.</span>
       </h1>
     </div>
@@ -75,7 +75,10 @@ const crumbs = breadcrumbSchema([
   <section class="border-y border-ink-line bg-ink-soft py-20 md:py-32">
     <div class="shell">
       <p class="eyebrow mb-12" data-reveal="up">Three things I don't move on</p>
-      <div class="grid gap-px overflow-hidden border border-ink-line bg-ink-line md:grid-cols-3">
+      <div
+        class="grid gap-px overflow-hidden border border-ink-line bg-ink-line md:grid-cols-3"
+        data-reveal-group
+      >
         {
           values.map((item, i) => (
             <div class="flex flex-col gap-5 bg-ink p-8 md:p-10" data-reveal="up">

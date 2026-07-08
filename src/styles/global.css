@@ -207,6 +207,37 @@
 }
 
 /* ---------------------------------------------------------------------- */
+/* Hero page-load choreography (MOTION.md §4.3).                           */
+/* Pure CSS keyframes — static pages must not hydrate just to animate.     */
+/* Above-the-fold hero elements carry data-load="1..4" (eyebrow → H1 →     */
+/* lede → CTA row) INSTEAD of data-reveal, so the load animation can never */
+/* double-fire with the scroll-reveal system (scroll-driven or IO         */
+/* fallback — both key off [data-reveal] only). Fade-up 1.5rem at          */
+/* --dur-reveal / --ease-out with an 80ms stagger between elements; runs   */
+/* once on load. Reduced motion: the animation is never applied, so        */
+/* content is simply visible.                                              */
+/* ---------------------------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  [data-load] {
+    animation: load-up var(--dur-reveal) var(--ease-out) both;
+  }
+  [data-load='2'] {
+    animation-delay: 80ms;
+  }
+  [data-load='3'] {
+    animation-delay: 160ms;
+  }
+  [data-load='4'] {
+    animation-delay: 240ms;
+  }
+}
+
+@keyframes load-up {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------------------------- */
 /* IntersectionObserver reveal fallback (Safari/Firefox — no view()).      */
 /* Driven by src/scripts/reveal.ts. The `.reveal-io` class is added to     */
 /* <html> ONLY by that script, and ONLY when scroll-driven reveals are     */
@@ -235,7 +266,8 @@
      Applies to the IO fallback ONLY — scroll-driven reveals are progress-
      bound to scroll position and cannot be time-delayed, so
      [data-reveal-group] is inert on the Chromium path (a later task may
-     revisit). T3.3 applies this attribute to real pages. */
+     revisit). Applied (T3.3) to the stat grids, card grids, and brand
+     strips across the pages. */
   .reveal-io [data-reveal-group] > [data-reveal] {
     transition-delay: 350ms;
   }

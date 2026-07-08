@@ -60,16 +60,16 @@ const crumbs = breadcrumbSchema([
   <!-- INTRO -->
   <section class="pt-32 pb-16 md:pt-44 md:pb-24">
     <div class="shell">
-      <p class="eyebrow mb-6" data-reveal="up">For brands & agencies</p>
-      <h1 class="display-hero max-w-[14ch]" data-reveal="up">
+      <p class="eyebrow mb-6" data-load="1">For brands & agencies</p>
+      <h1 class="display-hero max-w-[14ch]" data-load="2">
         Content that<br /><span class="text-rust">sells</span> the<br />supplement.
       </h1>
-      <p class="lede mt-10 max-w-2xl" data-reveal="up">
+      <p class="lede mt-10 max-w-2xl" data-load="3">
         I make authentic, ad-ready fitness content — supplements, apparel, and
         lifestyle — for brands that need a real athlete on camera, not an actor
         reading a script. Here's the work, the numbers, and the rates.
       </p>
-      <div class="mt-10 flex flex-wrap gap-4" data-reveal="up">
+      <div class="mt-10 flex flex-wrap gap-4" data-load="4">
         <a
           href="#inquiry"
           class="inline-flex items-center justify-center bg-rust-ui px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-deep"
@@ -114,7 +114,10 @@ const crumbs = breadcrumbSchema([
   <section class="border-y border-ink-line bg-ink-soft py-20 md:py-28">
     <div class="shell">
       <SectionHead eyebrow="Mini media kit" index="02" title="The numbers." class="mb-12" />
-      <div class="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
+      <div
+        class="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8"
+        data-reveal-group
+      >
         {
           stats.map((s) => (
             <div class="min-w-0" data-reveal="up">
@@ -134,7 +137,10 @@ const crumbs = breadcrumbSchema([
   <!-- BRANDS -->
   <section class="shell py-20 md:py-28">
     <SectionHead eyebrow="Worked with" index="03" title="Brand partners." class="mb-12" />
-    <div class="grid grid-cols-1 gap-px overflow-hidden border border-ink-line bg-ink-line sm:grid-cols-3">
+    <div
+      class="grid grid-cols-1 gap-px overflow-hidden border border-ink-line bg-ink-line sm:grid-cols-3"
+      data-reveal-group
+    >
       {
         brands.map((b) => (
           <div class="flex flex-col gap-1 bg-ink px-6 py-10" data-reveal="up">
@@ -160,7 +166,7 @@ const crumbs = breadcrumbSchema([
         No “contact us to learn our prices” — here's where it begins.
       </p>
 
-      <div class="grid gap-5 lg:grid-cols-3">
+      <div class="grid gap-5 lg:grid-cols-3" data-reveal-group>
         {
           ugcPackages.map((pkg) => (
             <div
