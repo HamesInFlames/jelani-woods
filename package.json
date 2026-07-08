@@ -5,9 +5,10 @@
   "description": "Portfolio site for Jelani Woods — IFBB road-to-pro competitor, Toronto coach, content creator.",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
+    "start": "sirv dist --host 0.0.0.0 --port ${PORT:-4321} --etag",
     "build": "astro build",
     "preview": "astro preview",
+    "serve": "sirv dist --host 0.0.0.0 --port ${PORT:-4321} --etag",
     "astro": "astro"
   },
   "dependencies": {
@@ -15,7 +16,8 @@
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^5.6.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "sirv-cli": "^3.0.1"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
