@@ -1,0 +1,23 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  index?: string;
+  class?: string;
+}
+const { eyebrow, title, index, class: className = '' } = Astro.props;
+---
+
+<div class:list={['flex items-end justify-between gap-6', className]} data-reveal="up">
+  <div>
+    {eyebrow && <p class="eyebrow mb-4">{eyebrow}</p>}
+    <h2 class="display-xl max-w-[16ch]" set:html={title} />
+  </div>
+  {
+    index && (
+      <span class="hidden shrink-0 font-display text-2xl text-ink-line md:block">
+        {index}
+      </span>
+    )
+  }
+</div>

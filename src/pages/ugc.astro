@@ -1,0 +1,238 @@
+---
+import Base from '../layouts/Base.astro';
+import VideoFrame from '../components/VideoFrame.astro';
+import SectionHead from '../components/SectionHead.astro';
+import InquiryForm from '../components/InquiryForm.tsx';
+import { site, brands, ugcPackages, ugcAddOns } from '../data/site';
+import { breadcrumbSchema } from '../data/schema';
+
+const title = 'Brand & UGC Portfolio | Jelani Woods — Fitness Content Creator';
+const description =
+  'Authentic fitness, supplement, and apparel UGC that converts. Toronto creator Jelani Woods — sample clips, audience stats, brand work, and starting-at package rates.';
+
+const clips = [
+  { brand: 'Grindstone Blends', title: 'Pre-workout unboxing + first-rep reaction', metric: '' },
+  { brand: 'BuildApe', title: 'Fit check / apparel in the gym', metric: '' },
+  { brand: 'Fitness', title: '“3 mistakes killing your back day”', metric: '' },
+  { brand: 'Supplement', title: 'Honest review, compliance-safe claims', metric: '' },
+  { brand: 'Lifestyle', title: 'Day-in-the-life, high-protein meal prep', metric: '' },
+  { brand: 'Apparel', title: 'Testimonial-style talking head', metric: '' },
+];
+
+const stats = [
+  { n: '9:16', l: 'Native vertical, built for paid + organic' },
+  { n: '48h', l: 'Typical first-draft turnaround' },
+  { n: '3%+', l: 'Engagement rate (strong for the tier)' },
+  { n: 'Fitness', l: 'Supplements · apparel · lifestyle' },
+];
+
+// VideoObject schema for the sample reel slots.
+const videoSchema = clips.map((c) => ({
+  '@context': 'https://schema.org',
+  '@type': 'VideoObject',
+  name: `${c.brand} — ${c.title}`,
+  description: `UGC fitness content by Jelani Woods: ${c.title}.`,
+  thumbnailUrl: `${site.url}/og-default.png`,
+  uploadDate: '2026-01-01',
+  contentUrl: site.social.instagram,
+}));
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Brand / UGC', path: '/ugc' },
+]);
+---
+
+<Base title={title} description={description} schema={[...videoSchema, crumbs]}>
+  <!-- INTRO -->
+  <section class="pt-32 pb-16 md:pt-44 md:pb-24">
+    <div class="shell">
+      <p class="eyebrow mb-6" data-reveal="up">For brands & agencies</p>
+      <h1 class="display-hero max-w-[14ch]" data-reveal="up">
+        Content that<br /><span class="text-rust">sells</span> the<br />supplement.
+      </h1>
+      <p class="lede mt-10 max-w-2xl" data-reveal="up">
+        I make authentic, ad-ready fitness content — supplements, apparel, and
+        lifestyle — for brands that need a real athlete on camera, not an actor
+        reading a script. Here's the work, the numbers, and the rates.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4" data-reveal="up">
+        <a
+          href="#inquiry"
+          class="inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        >
+          Start a brand inquiry
+        </a>
+        <a
+          href="#packages"
+          class="inline-flex items-center justify-center border border-bone/30 px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:border-bone"
+        >
+          Jump to rates
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BEST CLIPS -->
+  <section class="shell pb-20 md:pb-32">
+    <SectionHead eyebrow="Selected work" index="01" title="Best clips." class="mb-12" />
+    <div class="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3">
+      {
+        clips.map((clip) => (
+          <div data-reveal="up">
+            <VideoFrame brand={clip.brand} title={clip.title} metric={clip.metric} />
+          </div>
+        ))
+      }
+    </div>
+    <p class="mt-6 font-sans text-xs text-bone-mute">
+      Placeholder frames — drop 3–6 best-performing 9:16 clips (mp4 or hosted) into
+      <code class="text-bone-dim">VideoFrame src</code>. Lead with the highest view counts.
+    </p>
+  </section>
+
+  <!-- MINI MEDIA KIT -->
+  <section class="border-y border-ink-line bg-ink-soft py-20 md:py-28">
+    <div class="shell">
+      <SectionHead eyebrow="Mini media kit" index="02" title="The numbers." class="mb-12" />
+      <div class="grid grid-cols-2 gap-x-6 gap-y-12 lg:grid-cols-4 lg:gap-8">
+        {
+          stats.map((s) => (
+            <div class="min-w-0" data-reveal="up">
+              <p class="font-display text-5xl leading-none text-bone md:text-6xl xl:text-7xl">{s.n}</p>
+              <p class="mt-3 max-w-[22ch] font-sans text-sm text-bone-dim">{s.l}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-10 font-sans text-xs text-bone-mute">
+        Replace with live figures: follower count, average views/reel, audience
+        geo + age split, and any standout campaign results.
+      </p>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="shell py-20 md:py-28">
+    <SectionHead eyebrow="Worked with" index="03" title="Brand partners." class="mb-12" />
+    <div class="grid grid-cols-1 gap-px overflow-hidden border border-ink-line bg-ink-line sm:grid-cols-3">
+      {
+        brands.map((b) => (
+          <div class="flex flex-col gap-1 bg-ink px-6 py-10" data-reveal="up">
+            <span class="font-display text-3xl uppercase text-bone">{b.name}</span>
+            <span class="font-sans text-xs uppercase tracking-[0.16em] text-bone-mute">{b.note}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages" class="border-t border-ink-line py-20 md:py-32">
+    <div class="shell">
+      <SectionHead
+        eyebrow="Transparent rates"
+        index="04"
+        title="Packages,<br/>starting at."
+        class="mb-4"
+      />
+      <p class="mb-12 max-w-xl font-sans text-bone-dim" data-reveal="up">
+        Rates are starting points and scale with usage, scope, and turnaround.
+        No “contact us to learn our prices” — here's where it begins.
+      </p>
+
+      <div class="grid gap-5 lg:grid-cols-3">
+        {
+          ugcPackages.map((pkg) => (
+            <div
+              class:list={[
+                'flex flex-col rounded-lg border p-8',
+                pkg.featured
+                  ? 'border-rust bg-ink-soft'
+                  : 'border-ink-line bg-ink',
+              ]}
+              data-reveal="up"
+            >
+              {pkg.featured && (
+                <span class="mb-4 self-start rounded-full bg-rust px-3 py-1 font-sans text-[0.6rem] font-semibold uppercase tracking-[0.2em] text-bone">
+                  Most booked
+                </span>
+              )}
+              <h3 class="font-display text-3xl uppercase text-bone">{pkg.name}</h3>
+              <p class="mt-4 font-display text-4xl text-rust">{pkg.price}</p>
+              <p class="font-sans text-xs uppercase tracking-[0.16em] text-bone-mute">
+                {pkg.cadence}
+              </p>
+              <p class="mt-5 font-sans text-sm leading-relaxed text-bone-dim">
+                {pkg.summary}
+              </p>
+              <ul class="mt-6 flex flex-col gap-3 border-t border-ink-line pt-6">
+                {pkg.includes.map((inc) => (
+                  <li class="flex gap-3 font-sans text-sm text-bone-dim">
+                    <span class="text-rust">—</span>
+                    {inc}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`mailto:${site.contact.brandEmail}?subject=${encodeURIComponent(pkg.name + ' — brand inquiry')}`}
+                class:list={[
+                  'mt-8 inline-flex items-center justify-center px-6 py-3.5 font-sans text-sm font-semibold uppercase tracking-[0.16em] transition-colors',
+                  pkg.featured
+                    ? 'bg-rust text-bone hover:bg-rust-bright'
+                    : 'border border-bone/30 text-bone hover:border-bone',
+                ]}
+              >
+                Book {pkg.name}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+
+      <!-- ADD-ONS -->
+      <div class="mt-12" data-reveal="up">
+        <p class="eyebrow mb-6">Add-ons</p>
+        <div class="grid gap-px overflow-hidden border border-ink-line bg-ink-line sm:grid-cols-2 lg:grid-cols-4">
+          {
+            ugcAddOns.map((a) => (
+              <div class="bg-ink p-6">
+                <p class="font-sans text-sm font-semibold text-bone">{a.label}</p>
+                <p class="mt-2 font-sans text-xs text-bone-mute">{a.detail}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / INQUIRY FORM -->
+  <section id="inquiry" class="shell scroll-mt-24 pb-24 md:pb-36">
+    <div
+      class="rounded-2xl border border-ink-line bg-ink-soft p-6 sm:p-10 md:p-14"
+      data-reveal="up"
+    >
+      <div class="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
+        <div>
+          <h2 class="display-xl max-w-[14ch]">Let's make something worth running.</h2>
+          <p class="mt-6 max-w-md font-sans text-bone-dim">
+            Send the brief, the product, and the goal. I'll come back with
+            concepts and a quote — usually within a day.
+          </p>
+          <p class="mt-6 font-sans text-sm text-bone-mute">
+            Prefer email? <a
+              href={`mailto:${site.contact.brandEmail}`}
+              class="link-underline break-all text-bone-dim">{site.contact.brandEmail}</a
+            >
+          </p>
+        </div>
+        <InquiryForm
+          client:visible
+          accessKey={site.contact.web3formsKey}
+          fallbackEmail={site.contact.brandEmail}
+        />
+      </div>
+    </div>
+  </section>
+</Base>

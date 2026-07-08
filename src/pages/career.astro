@@ -1,0 +1,95 @@
+---
+import Base from '../layouts/Base.astro';
+import Frame from '../components/Frame.astro';
+import { site, careerTimeline } from '../data/site';
+import { personSchema, breadcrumbSchema } from '../data/schema';
+
+const title = 'Career & Competition History | Jelani Woods, Toronto Bodybuilder';
+const description =
+  'The fifteen-year competition arc of Toronto bodybuilder Jelani Woods — from first rep to four-time medalist, the IFBB road to pro, and the pivot to coaching.';
+
+const crumbs = breadcrumbSchema([
+  { name: 'Home', path: '/' },
+  { name: 'Career', path: '/career' },
+]);
+---
+
+<Base title={title} description={description} schema={[personSchema, crumbs]}>
+  <!-- HERO -->
+  <section class="relative overflow-hidden pt-32 pb-16 md:pt-44 md:pb-24">
+    <div class="shell">
+      <p class="eyebrow mb-6" data-reveal="up">The record · 2011 — 2026</p>
+      <h1 class="display-hero max-w-[12ch]" data-reveal="up">
+        The<br />long<br /><span class="text-rust">game.</span>
+      </h1>
+      <p class="lede mt-10 max-w-2xl" data-reveal="up">
+        Nobody builds a stage-ready physique in a season. This is fifteen years
+        of choices — the shows, the medals, the misses, and the deliberate
+        pivot from competing to coaching and creating.
+      </p>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="relative border-t border-ink-line">
+    <div class="shell">
+      <ol class="relative">
+        {
+          careerTimeline.map((entry, i) => (
+            <li
+              class="group relative grid gap-6 border-b border-ink-line py-14 md:grid-cols-[minmax(0,7rem)_1fr_1fr] md:gap-12 md:py-20"
+              data-reveal="up"
+            >
+              <div class="md:sticky md:top-28 md:self-start">
+                <span class="font-display text-5xl leading-none text-rust md:text-6xl">
+                  {entry.year}
+                </span>
+              </div>
+
+              <div class="md:pt-2">
+                <span class="font-sans text-xs uppercase tracking-[0.22em] text-bone-mute">
+                  {String(i + 1).padStart(2, '0')} / {String(careerTimeline.length).padStart(2, '0')}
+                </span>
+                <h2 class="mt-3 font-display text-4xl uppercase leading-none text-bone md:text-5xl">
+                  {entry.heading}
+                </h2>
+                <p class="mt-5 max-w-md font-sans leading-relaxed text-bone-dim">
+                  {entry.body}
+                </p>
+              </div>
+
+              <Frame
+                ratio="4/3"
+                eyebrow={entry.year}
+                label={`${entry.heading} — stage or training photograph from this chapter.`}
+                class="rounded-sm md:mt-1"
+              />
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <!-- NEXT CHAPTER -->
+  <section class="relative overflow-hidden py-24 md:py-36">
+    <div class="shell">
+      <div class="max-w-3xl" data-reveal="up">
+        <p class="eyebrow mb-6">The next chapter</p>
+        <p class="font-serif text-3xl leading-tight md:text-5xl">
+          “Retirement from the stage isn't the end of the discipline — it's
+          where I hand it to someone else. Everything I learned dieting my own
+          body down to contest condition is now the practice I coach and the
+          content I make.”
+        </p>
+      </div>
+      <a
+        href={site.contact.applyUrl}
+        class="mt-12 inline-flex items-center justify-center bg-rust px-7 py-4 font-sans text-sm font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+        data-reveal="up"
+      >
+        Work with me
+      </a>
+    </div>
+  </section>
+</Base>

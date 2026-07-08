@@ -1,0 +1,81 @@
+---
+import { nav, site } from '../data/site';
+const year = 2026;
+---
+
+<footer class="relative overflow-hidden border-t border-ink-line bg-ink-soft">
+  <div class="shell py-16 md:py-24">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr]">
+      <div>
+        <p class="eyebrow">Toronto · Online worldwide</p>
+        <p class="mt-5 font-display text-4xl uppercase leading-[0.9] md:text-6xl">
+          Let's build<br />something<br /><span class="text-rust">real.</span>
+        </p>
+        <a
+          href={site.contact.applyUrl}
+          class="link-underline mt-8 inline-block py-2 font-sans text-sm font-semibold uppercase tracking-[0.16em]"
+        >
+          Apply to work with me →
+        </a>
+      </div>
+
+      <nav aria-label="Footer" class="flex flex-col gap-1">
+        <p class="eyebrow mb-2">Pages</p>
+        {
+          nav.map((item) => (
+            <a
+              href={item.href}
+              class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+            >
+              {item.label}
+            </a>
+          ))
+        }
+      </nav>
+
+      <div class="flex flex-col gap-1">
+        <p class="eyebrow mb-2">Connect</p>
+        <a
+          href={site.social.instagram}
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+          rel="me noopener"
+          target="_blank"
+        >
+          Instagram {site.social.instagramHandle}
+        </a>
+        <a
+          href={`mailto:${site.contact.email}`}
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+        >
+          {site.contact.email}
+        </a>
+        <a
+          href={`mailto:${site.contact.brandEmail}`}
+          class="py-1.5 font-sans text-sm text-bone-dim transition-colors hover:text-bone"
+        >
+          Brand & UGC inquiries
+        </a>
+      </div>
+    </div>
+
+    <hr class="rule my-12" />
+
+    <div
+      class="flex flex-col gap-2 font-sans text-xs text-bone-mute sm:flex-row sm:items-center sm:justify-between"
+    >
+      <p>© {year} {site.name}. All rights reserved.</p>
+      <p>{site.positioning}</p>
+    </div>
+  </div>
+
+  <div
+    aria-hidden="true"
+    class="pointer-events-none select-none overflow-hidden"
+  >
+    <p
+      class="-mb-6 whitespace-nowrap text-center font-display text-[18vw] uppercase leading-none text-ink-line/50 md:-mb-10"
+    >
+      Jelani Woods
+    </p>
+  </div>
+</footer>

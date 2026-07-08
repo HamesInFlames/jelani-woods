@@ -1,0 +1,54 @@
+---
+import { nav, site } from '../data/site';
+import MobileMenu from './MobileMenu.tsx';
+
+const current = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? current === '/' : current.startsWith(href);
+---
+
+<header
+  class="fixed inset-x-0 top-0 z-40 border-b border-ink-line/60 bg-ink/80 backdrop-blur-md"
+>
+  <div class="shell flex h-16 items-center justify-between md:h-20">
+    <a
+      href="/"
+      class="font-display text-xl uppercase leading-none tracking-tight md:text-2xl"
+      aria-label={`${site.name} — home`}
+    >
+      Jelani<span class="text-rust">.</span>Woods
+    </a>
+
+    <nav class="hidden items-center gap-8 md:flex" aria-label="Primary">
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'font-sans text-[0.8rem] font-medium uppercase tracking-[0.16em] transition-colors',
+              isActive(item.href)
+                ? 'text-rust-bright'
+                : 'text-bone-dim hover:text-bone',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a
+        href={site.contact.applyUrl}
+        class="bg-rust px-4 py-2.5 font-sans text-[0.75rem] font-semibold uppercase tracking-[0.16em] text-bone transition-colors hover:bg-rust-bright"
+      >
+        Apply
+      </a>
+    </nav>
+
+    <MobileMenu
+      client:idle
+      items={nav}
+      current={current}
+      applyUrl={site.contact.applyUrl}
+    />
+  </div>
+</header>

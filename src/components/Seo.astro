@@ -1,0 +1,50 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  /** JSON-LD schema objects to inject for this page. */
+  schema?: Record<string, unknown>[];
+  ogType?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  schema = [],
+  ogType = 'website',
+  image = '/og-default.png',
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const imageUrl = new URL(image, Astro.site ?? site.url).href;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<meta property="og:type" content={ogType} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:locale" content="en_CA" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
+
+{
+  schema.map((block) => (
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(block)}
+      is:inline
+    />
+  ))
+}
