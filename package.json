@@ -3,6 +3,9 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Portfolio site for Jelani Woods — IFBB road-to-pro competitor, Toronto coach, content creator.",
+  "engines": {
+    "node": "22.x"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "sirv dist --host 0.0.0.0 --port ${PORT:-4321} --etag",
